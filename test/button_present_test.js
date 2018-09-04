@@ -1,86 +1,56 @@
-// See: https://www.browserstack.com/automate/node
-// API: http://selenium.googlecode.com/git/docs/api/javascript/index.html
-// Capabilities
-//  - https://www.browserstack.com/automate/capabilities
-//  - Capability platform/os configurator: https://docs.saucelabs.com/reference/platforms-configurator/#/
-//
-// How can I use selenium-webdriver package with SauceLabs?: http://stackoverflow.com/q/21170734/796832
-
-// # Setup
-//
-// ### Set environment variables with your browserstack credentials
-// See: http://stackoverflow.com/a/13333312/796832
-//
-// Windows:
-// ```
-// set BS_USER=xxx
-// set BS_KEY=xxx
-// ```
-
-
 import Promise from 'bluebird';
+import assert from 'assert';
+import path from 'path';
 import objectAssign from 'object-assign';
-//var webdriver = require('browserstack-webdriver');
 import webdriver from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome';
 import test from 'tape';
-//var test = require('browserstack-webdriver/testing');
 
-import testingEnvironments from './utility/testing-environments.js';
+const options  = new chrome.Options();
+options.addArguments('headless');
+options.addArguments('disable-gpu');
+options.addArguments('disable-extensions');
+options.addArguments('no-sandbox');
 
+const capabilities = webdriver.Capabilities.chrome();
 
-
-let createWebDriver = function({
-  server = 'http://hub.browserstack.com/wd/hub',
-  capabilities = {}
-}) {
-  let driver = new webdriver.Builder()
-    .usingServer(server)
-    .withCapabilities(capabilities)
-    .build();
-
-  return driver;
-};
+const driver = new webdriver.Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .withCapabilities(capabilities)
+  .build();
 
 
-const buttonTextExpected = 'open chat';
+test('Open Chat Button should be present', function (t) {
+  t.plan(1);
 
-testingEnvironments.forEach(function(testingEnvironment) {
-  const testName = `Open Chat Button should be present. in ${testingEnvironment.browserName} on ${testingEnvironment.platform}`;
-  test(testName, function (t) {
-    t.plan(1);
+  const getPage = driver.get(`file://${path.join(__dirname, './fixtures/example.html')}`);
 
-    let driver = createWebDriver({
-      capabilities: testingEnvironment
-    });
+  const buttonLocator = webdriver.By.css('.gitter-open-chat-button');
 
-    let getPage = driver.get(`http://${testingEnvironment['browserstack.user']}.browserstack.com/example.html`);
-
-    let buttonLocator = webdriver.By.css('.gitter-open-chat-button');
-
-    let openChatButtonExists = getPage.then(function() {
-      return driver.wait(function() {
-        return driver.isElementPresent(buttonLocator);
-      }, 10000);
-    });
-
-    openChatButtonExists
-      .then(function() {
-        return driver.findElement(buttonLocator);
-      })
-      .then(function(item) {
-        return Promise.resolve(item.getText());
-      })
-      .then(function(text) {
-        let actual = text.toLowerCase();
-        if(actual !== buttonTextExpected) {
-          throw new Error(`Failed, expected text to look like ${buttonTextExpected} but actually was ${actual}`);
-        }
-      })
-      .then(function() {
-        //console.log('driver.quit called');
-        driver.quit();
-
-        t.pass('Successfully ran through selenium tasks');
-      });
+  const openChatButtonExists = getPage.then(function() {
+    return driver.wait(
+      webdriver.until.elementLocated(buttonLocator),
+      20000
+    );
   });
+
+  openChatButtonExists
+    .then(function() {
+      return driver.findElement(buttonLocator);
+    })
+    .then(function(item) {
+      return Promise.resolve(item.getText());
+    })
+    .then(function(text) {
+      const actualText = text.toLowerCase();
+      const buttonTextExpected = 'open chat';
+      assert(actualText, buttonTextExpected, `Expected text to look like ${buttonTextExpected} but actually was ${actualText}`);
+    })
+    .then(function() {
+      t.pass('Successfully ran through selenium tasks');
+    })
+    .finally(() => {
+      driver.quit();
+    });
 });
