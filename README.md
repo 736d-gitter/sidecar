@@ -79,6 +79,4 @@ You'll need AWS credentials exported as `AWS_KEY` and `AWS_SECRET`. This command
 
 # Testing
 
-You'll need a BrowserStack username and key, exported as `BS_USER` and `BS_KEY` respectively.
-
 `npm test`

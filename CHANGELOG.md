@@ -1,3 +1,10 @@
+# v1.4.0 - 2018-9-4
+
+ - Use `rel="noopener"` on external links to isolate Gitter from referrers JavaScript
+    - Thanks to [@wmhilton](https://gitlab.com/wmhilton) for the contribution, https://gitlab.com/gitlab-org/gitter/sidecar/merge_requests/72
+ - Migrate project over to GitLab
+
+
 # v1.3.3 - 2018-2-12
 
  - Only shim `Array.from` when it isn't available natively
