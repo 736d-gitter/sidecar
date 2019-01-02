@@ -1,3 +1,9 @@
+# v1.4.2 - 2019-1-2
+
+ - [Microsite](https://sidecar.gitter.im/): Update example links from GitHub to GitLab
+    - Thanks to [@avelino](https://gitlab.com/avelino) for the contribution, https://gitlab.com/gitlab-org/gitter/sidecar/merge_requests/74
+
+
 # v1.4.0 - 2018-9-4
 
  - Use `rel="noopener"` on external links to isolate Gitter from referrers JavaScript
