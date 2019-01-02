@@ -34,9 +34,9 @@ You can define toggle/open/close buttons in your page using the `.js-gitter-togg
 
 ## Examples
 
- - [Basic](https://github.com/gitterHQ/sidecar/tree/master/examples/basic)
- - [Toggle chat, show/hide](https://github.com/gitterHQ/sidecar/tree/master/examples/toggle-chat-class-buttons)
- - [Create and Destroy chat](https://github.com/gitterHQ/sidecar/tree/master/examples/create-destroy-chat)
+ - [Basic](https://gitlab.com/gitlab-org/gitter/sidecar/tree/master/examples/basic)
+ - [Toggle chat, show/hide](https://gitlab.com/gitlab-org/gitter/sidecar/tree/master/examples/toggle-chat-class-buttons)
+ - [Create and Destroy chat](https://gitlab.com/gitlab-org/gitter/sidecar/tree/master/examples/create-destroy-chat)
 
 
 # Options
