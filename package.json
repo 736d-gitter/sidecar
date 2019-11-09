@@ -3,7 +3,7 @@
   "version": "1.4.2",
   "description": "An embeddable Gitter client.",
   "main": "./dist/sidecar-module.js",
-  "repository": "https://github.com/gitterHQ/sidecar",
+  "repository": "https://gitlab.com/gitlab-org/gitter/sidecar",
   "engine": {
     "node": "=4.8.6"
   },
