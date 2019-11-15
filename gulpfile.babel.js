@@ -17,8 +17,6 @@ import S3 from 's3';
 import manifest from './package.json';
 
 import postcss from 'gulp-postcss';
-import getPostcssPluginStack from './postcss-plugin-stack';
-
 
 //import sidecarWebpackConfig from './webpack.config';
 import micrositeWebpackConfig from './microsite/webpack.config';
@@ -197,7 +195,7 @@ gulp.task('build-microsite-styles', function() {
     .pipe(plumber({
       errorHandler: plumberErrorHandler
     }))
-    .pipe(postcss(getPostcssPluginStack()))
+    .pipe(postcss())
     .pipe(gulp.dest(config.paths.micrositeCss.dist));
 });
 

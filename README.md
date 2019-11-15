@@ -80,3 +80,9 @@ You'll need AWS credentials exported as `AWS_KEY` and `AWS_SECRET`. This command
 # Testing
 
 `npm test`
+
+# Contributing
+
+We use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/). Merge requests should be made against `develop` not `master`.
+
+Please join us in [gitterHQ/contributing](https://gitter.im/gitterHQ/contributing) for questions or to get in touch.

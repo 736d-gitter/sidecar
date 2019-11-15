@@ -1,10 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const manifest = require('./package.json');
 
-var manifest = require('./package.json');
-var getPostcssPluginStack = require('./postcss-plugin-stack.js');
-
-var commentHeader = 'Gitter Sidecar v' + manifest.version + '\nhttps://sidecar.gitter.im/';
+const commentHeader = 'Gitter Sidecar v' + manifest.version + '\nhttps://sidecar.gitter.im/';
 
 module.exports = {
   entry: './src/index.js',
@@ -18,7 +16,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         loader: 'babel'
       },
       {
@@ -29,8 +27,5 @@ module.exports = {
   },
   plugins: [
     new webpack.BannerPlugin(commentHeader)
-  ],
-  postcss: function() {
-    return getPostcssPluginStack();
-  }
+  ]
 };

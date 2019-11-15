@@ -1,13 +1,5 @@
-import {shim as arrayFromShim} from 'array.from';
-if (!Array.from) {
-  arrayFromShim();
-}
-import objectAssign from 'object-assign';
-import {Promise} from 'es6-promise';
 import Symbol from './basic-symbol-ponyfill';
 import CustomEvent from './custom-event-ponyfill';
-//import Promise from 'bluebird';
-
 import ElementStore from './element-store.js';
 import chatCss from '../css/chat.css';
 
@@ -15,9 +7,6 @@ import { default as $ } from './dom-utility.js';
 import * as domUtility from './dom-utility.js';
 
 import makeReadableCopy from './make-readable-copy';
-
-
-
 
 let parseAttributeTruthiness = function(value) {
   if(value) {
@@ -53,7 +42,10 @@ let getDataOptionsFromElement = function(options, element) {
     }
   });
 
-  return objectAssign({}, options, newOptions);
+  return {
+    ...options,
+    ...newOptions
+  };
 };
 
 
@@ -85,6 +77,7 @@ let embedGitterStyles = function() {
   //$('head')[0].insertAdjacentHTML('afterbegin', '<div></div>');
 
   let style = elementStore.createElement('style');
+  style.type = 'text/css';
   style.innerHTML = chatCss;
 
   // Put it at the top of the head so others can override
@@ -223,8 +216,8 @@ class chatEmbed {
     this[ELEMENTSTORE] = new ElementStore();
     this[EVENTHANDLESTORE] = [];
 
-    this[DEFAULTS] = objectAssign({}, defaults);
-    this[OPTIONS] = objectAssign({}, this[DEFAULTS], options);
+    this[DEFAULTS] = defaults;
+    this[OPTIONS] = { ...this[DEFAULTS], ...options };
 
     this[INIT]();
   }

@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 import assert from 'assert';
 import path from 'path';
-import objectAssign from 'object-assign';
 import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome';
 import test from 'tape';
