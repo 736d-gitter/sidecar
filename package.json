@@ -1,6 +1,6 @@
 {
   "name": "gitter-sidecar",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "An embeddable Gitter client.",
   "main": "./dist/sidecar-module.js",
   "repository": "https://gitlab.com/gitlab-org/gitter/sidecar",
