@@ -1,8 +1,8 @@
-var path = require('path');
-var objectAssign = require('object-assign');
-var webpackConfig = require('./webpack.config');
+const path = require('path');
+const webpackConfig = require('./webpack.config');
 
-module.exports = objectAssign({}, webpackConfig, {
+module.exports = {
+  ...webpackConfig,
   entry: './src/index.module.js',
   output: {
     path: path.join(__dirname, 'dist'),
@@ -10,4 +10,4 @@ module.exports = objectAssign({}, webpackConfig, {
     library: 'sidecar',
     libraryTarget: 'umd'
   }
-});
+};
