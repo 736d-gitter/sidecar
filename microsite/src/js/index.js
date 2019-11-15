@@ -4,18 +4,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import objectAssign from 'object-assign';
 
 import MicrositeApp from './components/MicrositeApp';
 import micrositeAppReducer from './reducers/MicrositeReducer';
+let initialState = window.__INITIAL_STATE__;
 
-
-const initialState = window.__INITIAL_STATE__;
-
-let store = createStore(micrositeAppReducer, objectAssign({
+let store = createStore(micrositeAppReducer, {
   roomName: '',
-  documentation: ''
-}, initialState));
+  documentation: '',
+  ...initialState
+});
 
 ReactDOM.render(
   // The child must be wrapped in a function

@@ -1,5 +1,3 @@
-import objectAssign from 'object-assign';
-
 let remove = function(element) {
   if(element) {
     element.parentElement.removeChild(element);
