@@ -57,16 +57,21 @@ This is currently a work in progress. But I hope to have `react-hot-loader` and 
 `npm run devbuild-microsite`
 
 
-# Deploy: Push Release
+# The release process
 
-We have CircleCI setup, the config is in `circle.yml`.
+1. Before starting, make sure that you configured version prefix to be `v` during running `git flow init`. You can do that by checking your git config (`cat .git/config | grep -A 7 prefix`) If you don't see `versiontag = v`. Configure `git flow init -f` again.
+1. Start a release with `git flow release start <new version>`
+1. Bump up package version `npm --no-git-tag-version version <new version>`.
+1. Push the release branch and create a new MR
+1. Finish the release with `git flow release finish <new version>`
+1. Push local `develop` and `master` branches to the origin and `git push --tags`.
+1. Manually run the deploy step on the tag pipeline in GitLab CI.
+1. check out the `v<version>` tag and run `npm publish` to upload the module to https://www.npmjs.com/package/gitter-sidecar
 
-To push a new version of the sidecar script, run the following:
-
- - `npm version patch`: bump version and tag it
- - `git push --tags`: Trigger CircleCI build
-
-To push a new release of microsite, just push to the `master` branch
+## Validate the release
+1. go to https://sidecar.gitter.im/ and check that the downloaded `sidecar.v1.js` is in the new version (using Dev Tools)
+    ![Screenshot_2019-11-15_at_4.12.47_PM](/uploads/9ab393daeb0704a8b4f6132463bb124d/Screenshot_2019-11-15_at_4.12.47_PM.png)
+1. see the new version published in npm repository https://www.npmjs.com/package/gitter-sidecar
 
 
 ## Manual Deployment
